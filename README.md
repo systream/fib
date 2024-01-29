@@ -6,17 +6,19 @@ Best fibonacci server ever :D
 
 In console
 ```bash
-rebar3 shell
+./rebar3 shell
 ```
 or create a release and start it
 
 ```bash
-rebar3 release
+./rebar3 release
 ```
 
 ```bash
  ./_build/default/rel/fib/bin/fib start
 ```
+
+*Tested on erlang 25*
 
 By default, fib app will start on port `8080` (can be changed in sys.config).
 For access swagger open: 
@@ -26,6 +28,6 @@ http://localhost:8080/api-docs/index.html
 ## Test
 
 ```bash
-rebar3 test
+./rebar3 test
 ```
 
