@@ -1,0 +1,24 @@
+-- set one --
+POST /blacklists
+> Accept: application/json
+> Content-Type: application/json
+11
+< 204
+
+-- again --
+POST /blacklists
+> Accept: application/json
+> Content-Type: application/json
+11
+< 204
+
+-- remove from blacklist --
+DELETE /blacklists/11
+> Accept: application/json
+< 204
+
+
+-- remove from blacklist - not found --
+DELETE /blacklists/11
+> Accept: application/json
+< 204

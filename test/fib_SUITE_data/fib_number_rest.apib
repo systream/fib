@@ -1,0 +1,83 @@
+-- fibonacci seq starts with 0 --
+GET /calculations/fibonacci/0
+> Accept: application/json
+< 200
+< Content-Type: application/json
+0
+
+-- 1 should be 1 - not calculated --
+GET /calculations/fibonacci/1
+> Accept: application/json
+< 200
+< Content-Type: application/json
+1
+
+-- calculated --
+GET /calculations/fibonacci/2
+> Accept: application/json
+< 200
+< Content-Type: application/json
+1
+
+-- 3 should be 2 --
+GET /calculations/fibonacci/3
+> Accept: application/json
+< 200
+< Content-Type: application/json
+2
+
+-- smoke test 1 --
+GET /calculations/fibonacci/8
+> Accept: application/json
+< 200
+< Content-Type: application/json
+21
+
+-- smoke test 2 --
+GET /calculations/fibonacci/19
+> Accept: application/json
+< 200
+< Content-Type: application/json
+4181
+
+-- random high --
+GET /calculations/fibonacci/35
+> Accept: application/json
+< 200
+< Content-Type: application/json
+9227465
+
+-- negative --
+GET /calculations/fibonacci/-10
+> Accept: application/json
+< 400
+
+-- not number --
+GET /calculations/fibonacci/foobar
+> Accept: application/json
+< 400
+
+
+-- set a stop number --
+POST /blacklists
+> Accept: application/json
+> Content-Type: application/json
+4181
+< 204
+
+-- Get a number which blacklisted --
+GET /calculations/fibonacci/19
+> Accept: application/json
+< 403
+
+-- remove from blacklist --
+DELETE /blacklists/4181
+> Accept: application/json
+< 204
+
+-- should have a positive answer --
+GET /calculations/fibonacci/19
+> Accept: application/json
+< 200
+< Content-Type: application/json
+4181

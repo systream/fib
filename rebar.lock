@@ -1,0 +1,26 @@
+{"1.2.0",
+[{<<"cowboy">>,
+  {git,"https://github.com/ninenines/cowboy.git",
+       {ref,"9e600f6c1df3c440bc196b66ebbc005d70107217"}},
+  0},
+ {<<"cowboy_swagger">>,{pkg,<<"cowboy_swagger">>,<<"2.7.0">>},0},
+ {<<"cowlib">>,
+  {git,"https://github.com/ninenines/cowlib",
+       {ref,"cc04201c1d0e1d5603cd1cde037ab729b192634c"}},
+  1},
+ {<<"jsx">>,{pkg,<<"jsx">>,<<"3.1.0">>},0},
+ {<<"ranch">>,
+  {git,"https://github.com/ninenines/ranch",
+       {ref,"a692f44567034dacf5efcaa24a24183788594eb7"}},
+  1},
+ {<<"trails">>,{pkg,<<"trails">>,<<"2.3.1">>},1}]}.
+[
+{pkg_hash,[
+ {<<"cowboy_swagger">>, <<"163091DB15BFCFA592CBA0E083E386D0DEC84D43CCF5E542238125E50B1A024B">>},
+ {<<"jsx">>, <<"D12516BAA0BB23A59BB35DCCAF02A1BD08243FCBB9EFE24F2D9D056CCFF71268">>},
+ {<<"trails">>, <<"BB940CD0D5187A8FB0BB05F3DB575B5A1CAC20A980EDACE092CA2033AACD0BAB">>}]},
+{pkg_hash_ext,[
+ {<<"cowboy_swagger">>, <<"DCD5ADEE2FED2B39E99F06070D080EB051CB981A411103099034931F94E15F62">>},
+ {<<"jsx">>, <<"0C5CC8FDC11B53CC25CF65AC6705AD39E54ECC56D1C22E4ADB8F5A53FB9427F3">>},
+ {<<"trails">>, <<"1006E38E09BA095AE77DD9A50BB3E8EBDB8DC31ECBC5BF276C3D848C15D7079B">>}]}
+].

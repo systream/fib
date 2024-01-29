@@ -1,0 +1,155 @@
+-- fibonacci seq with 0 - should be error according to spec --
+GET /calculations/fibonacci-sequence/0
+> Accept: application/json
+< 400
+
+-- 1 item list --
+GET /calculations/fibonacci-sequence/1
+> Accept: application/json
+< 200
+< Content-Type: application/json
+[
+    1
+]
+
+-- bigger item list --
+GET /calculations/fibonacci-sequence/19
+> Accept: application/json
+< 200
+< Content-Type: application/json
+[
+    1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181
+]
+
+
+-- not number --
+GET /calculations/fibonacci-sequence/foo
+> Accept: application/json
+< 400
+
+-- negative --
+GET /calculations/fibonacci-sequence/-12
+> Accept: application/json
+< 400
+
+
+-- pagination - just offset --
+GET /calculations/fibonacci-sequence/19?offset=0
+> Accept: application/json
+< 200
+< Content-Type: application/json
+[
+  1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181
+]
+
+
+-- pagination - just offset + limit  --
+GET /calculations/fibonacci-sequence/19?offset=0&limit=2
+> Accept: application/json
+< 200
+< Content-Type: application/json
+[
+    1, 1
+]
+
+
+-- pagination - just limit  --
+GET /calculations/fibonacci-sequence/19?limit=3
+> Accept: application/json
+< 200
+< Content-Type: application/json
+[
+    1, 1, 2
+]
+
+
+-- pagination - offset test  --
+GET /calculations/fibonacci-sequence/19?offset=1&limit=3
+> Accept: application/json
+< 200
+< Content-Type: application/json
+[
+   1, 2, 3
+]
+
+-- pagination -end of list  --
+GET /calculations/fibonacci-sequence/5?offset=4&limit=3
+> Accept: application/json
+< 200
+< Content-Type: application/json
+[
+    5
+]
+
+
+-- pagination - over request  --
+GET /calculations/fibonacci-sequence/5?offset=7&limit=1
+> Accept: application/json
+< 200
+< Content-Type: application/json
+[
+]
+
+-- pagination - limit 0 -> no record -> make sense --
+GET /calculations/fibonacci-sequence/6?offset=0&limit=0
+> Accept: application/json
+< 200
+< Content-Type: application/json
+[]
+
+
+-- set a stop number --
+POST /blacklists
+> Accept: application/json
+> Content-Type: application/json
+1
+< 204
+
+-- set a stop number --
+POST /blacklists
+> Accept: application/json
+> Content-Type: application/json
+34
+< 204
+
+
+-- limit --
+GET /calculations/fibonacci-sequence/19?limit=9
+> Accept: application/json
+< 200
+< Content-Type: application/json
+[
+    2, 3, 5, 8, 13, 21, 55, 89, 144
+]
+
+-- limit and offset --
+GET /calculations/fibonacci-sequence/19?limit=9&offset=1
+> Accept: application/json
+< 200
+< Content-Type: application/json
+[
+    3, 5, 8, 13, 21, 55, 89, 144, 233
+]
+
+-- test blacklist --
+GET /calculations/fibonacci-sequence/19
+> Accept: application/json
+< 200
+< Content-Type: application/json
+[
+    2, 3, 5, 8, 13, 21, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181
+]
+
+-- remove from blacklist --
+DELETE /blacklists/1
+> Accept: application/json
+< 204
+
+-- bigger item list --
+GET /calculations/fibonacci-sequence/19
+> Accept: application/json
+< 200
+< Content-Type: application/json
+[
+    1, 1, 2, 3, 5, 8, 13, 21, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181
+]
