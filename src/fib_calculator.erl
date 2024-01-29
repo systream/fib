@@ -46,9 +46,9 @@ do_calculate_seq(Current, Offset, Limit, Target, Acc) ->
   Result = calculate(Current),
   case fib_blacklist_handler:is_blacklisted(Result) of
     false when Offset > 0 ->
-      do_calculate_seq(Current+1, Offset-1, Limit, Target, Acc);
+      do_calculate_seq(Current + 1, Offset - 1, Limit, Target, Acc);
     false when Limit > 0 ->
-      do_calculate_seq(Current+1, Offset, Limit-1, Target, [Result | Acc]);
+      do_calculate_seq(Current + 1, Offset, Limit - 1, Target, [Result | Acc]);
     true ->
-      do_calculate_seq(Current+1, Offset, Limit, Target, Acc)
+      do_calculate_seq(Current + 1, Offset, Limit, Target, Acc)
   end.

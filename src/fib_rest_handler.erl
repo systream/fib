@@ -29,7 +29,7 @@ allowed_methods(Req, State) ->
   {[<<"GET">>, <<"HEAD">>], Req, State}.
 
 -spec content_types_provided(cowboy_req:req(), map()) ->
-  {proplists:proplist(), cowboy_req:req(), map()}.
+  {[{binary(), atom()}], cowboy_req:req(), map()}.
 content_types_provided(Req, State) ->
   {[{<<"application/json">>, calculate}], Req, State}.
 

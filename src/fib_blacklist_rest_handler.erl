@@ -30,14 +30,14 @@ allowed_methods(Req, State) ->
   {[<<"POST">>, <<"DELETE">>], Req, State}.
 
 -spec content_types_provided(cowboy_req:req(), map()) ->
-  {proplists:proplist(), cowboy_req:req(), map()}.
+  {[{binary(), atom()}], cowboy_req:req(), map()}.
 content_types_provided(#{bindings := #{n := _}} = Req, State) ->
   {[{<<"application/json">>, remove}], Req, State};
 content_types_provided(Req, State) ->
   {[{<<"application/json">>, add}], Req, State}.
 
 -spec content_types_accepted(cowboy_req:req(), map()) ->
-  {proplists:proplist(), cowboy_req:req(), map()}.
+  {[{binary(), atom()}], cowboy_req:req(), map()}.
 content_types_accepted(Req, State) ->
   {[{<<"application/json">>, add}], Req, State}.
 

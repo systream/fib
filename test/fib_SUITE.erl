@@ -118,7 +118,17 @@ blacklist_rest(Config) ->
 
 blacklist_cover(_Config) ->
   fib_blacklist_handler ! test,
-  gen_server:cast(fib_blacklist_handler, test).
+  gen_server:cast(fib_blacklist_handler, test),
+
+  % test when payload is not json
+  {ok, StatusCode, _RespHeaders, _ClientRef} =
+    hackney:request(post,
+                    <<"http://localhost:8080/blacklists">>,
+                    [{<<"accept">>, <<"application/json">>},
+                     {<<"content-type">>, <<"application/json">>}],
+                    <<"foo">>,
+                    []),
+  ?assertEqual(400, StatusCode).
 
 % ################################################
 katt_run(ApibFile, Config) ->
