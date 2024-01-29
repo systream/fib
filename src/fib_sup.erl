@@ -21,6 +21,12 @@ init([]) ->
                  intensity => 0,
                  period => 1},
     ChildSpecs = [
+      #{id => cache,
+        start => {fib_cache, start_link, []},
+        restart => permanent,
+        shutdown => 5000,
+        type => worker,
+        modules => [fib_cache]},
       #{id => blacklist_handler,
              start => {fib_blacklist_handler, start_link, []},
              restart => permanent,

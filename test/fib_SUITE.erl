@@ -101,7 +101,9 @@ groups() ->
 all() ->
   [
     {group, rest_group},
-    blacklist_cover
+    blacklist_cover,
+    cache,
+    cache_cover
   ].
 
 fib_number_rest(Config) ->
@@ -129,6 +131,16 @@ blacklist_cover(_Config) ->
                     <<"foo">>,
                     []),
   ?assertEqual(400, StatusCode).
+
+cache(_Config) ->
+  ok = meck:new(foo, [non_strict]),
+  meck:expect(foo, fetch, fun(N) -> timer:sleep(N), N*N end),
+  [spawn_link(fun() -> fib_cache:fetch(100, fun foo:fetch/1) end) || _ <- lists:seq(1,10)],
+  ct:sleep(110),
+  ?assertEqual(1, meck:num_calls(foo, fetch, ['_'])).
+
+cache_cover(_Config) ->
+  gen_server:cast(fib_cache, test).
 
 % ################################################
 katt_run(ApibFile, Config) ->

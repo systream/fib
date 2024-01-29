@@ -10,13 +10,16 @@
 %% API
 -export([calculate/1, calculate_seq/3]).
 
-% @TODO cache!?
 -spec calculate(non_neg_integer()) -> non_neg_integer().
 calculate(1) ->
   1;
 calculate(0) ->
   0;
 calculate(N) ->
+  fib_cache:fetch(N, fun do_calculate/1).
+
+-spec do_calculate(non_neg_integer()) -> non_neg_integer().
+do_calculate(N) ->
   calculate(N, 0, 1).
 
 -spec calculate(non_neg_integer(), non_neg_integer(), pos_integer()) ->
